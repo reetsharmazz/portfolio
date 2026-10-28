@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reet Sharma | Chronicles of the Realm — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Reet Sharma — Explorer, Strategist, and Aspiring Creator in the realm of knowledge. Inspired by the Game of Thrones universe.">
+  
+  <!-- Google Fonts for Game of Thrones Medieval & Modern Elegance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="winterfell">
+  <!-- Subtle Canvas for Realm Ambient Particles (Snow / Embers / Mist) -->
+  <canvas id="ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Ambient Sound & Realm Utility Bar -->
+  <div class="realm-util-bar">
+    <div class="util-left">
+      <span class="realm-date-badge">
+        <svg class="icon-feather" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+          <line x1="16" y1="8" x2="2" y2="22"></line>
+          <line x1="17.5" y1="15" x2="9" y2="15"></line>
+        </svg>
+        <span id="current-realm-time">Realm Epoch &bull; Westeros & Essos</span>
+      </span>
+    </div>
+
+    <div class="util-right">
+      <button id="sound-btn" class="util-btn" title="Toggle Soft Medieval Ambience" aria-label="Toggle Soft Medieval Ambience">
+        <svg class="icon-harp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span class="sound-label">Lute Melody</span>
+      </button>
+
+      <button id="quick-raven-btn" class="util-btn primary" title="Send a Raven to Reet">
+        <svg class="icon-raven" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m22 2-7 20-4-9-9-4Z"></path>
+          <path d="M22 2 11 13"></path>
+        </svg>
+        <span>Send a Raven</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header & Grand Realm Masthead -->
+  <header class="realm-header">
+    <div class="crest-container">
+      <div class="heraldic-sigil" id="realm-sigil-icon">
+        <!-- Sigil SVG will update or morph smoothly based on active interface -->
+        <svg viewBox="0 0 100 100" class="sigil-svg" id="active-sigil-svg">
+          <!-- Default Winterfell Direwolf / Dire-Crest -->
+          <circle cx="50" cy="50" r="46" class="sigil-ring" />
+          <path d="M50 14 L55 30 L72 32 L58 43 L64 60 L50 49 L36 60 L42 43 L28 32 L45 30 Z" class="sigil-star" />
+          <path d="M38 52 C42 62, 58 62, 62 52 C65 68, 50 82, 50 82 C50 82, 35 68, 38 52 Z" class="sigil-shield" />
+        </svg>
+      </div>
+      <div class="royal-title-block">
+        <span class="sub-motto">Chronicles of the Known World &bull; Personal Portfolio</span>
+        <h1 class="lord-name">REET SHARMA</h1>
+        <p class="realm-status-tag" id="realm-location-subtitle">
+          <span class="location-dot"></span> Currently Standing In: <strong id="current-location-text">Winterfell &mdash; The Great Keep</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Realm Navigation: 3 Distinct Places of Game of Thrones Universe -->
+    <nav class="places-nav" aria-label="Realm Navigation">
+      <div class="nav-track">
+        <!-- Location 1: Winterfell (My Details) -->
+        <button class="place-tab active" data-place="winterfell" data-theme="winterfell" id="tab-winterfell">
+          <div class="tab-indicator"></div>
+          <div class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18"></path>
+              <path d="M5 21V7l7-4 7 4v14"></path>
+              <path d="M9 10a3 3 0 0 1 6 0v11H9z"></path>
+            </svg>
+          </div>
+          <div class="tab-texts">
+            <span class="realm-name">Winterfell</span>
+            <span class="section-title">My Details</span>
+          </div>
+          <span class="location-badge">The North</span>
+        </button>
+
+        <!-- Location 2: The Citadel of Oldtown (About Me) -->
+        <button class="place-tab" data-place="citadel" data-theme="citadel" id="tab-citadel">
+          <div class="tab-indicator"></div>
+          <div class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+              <path d="M6 6h10"></path>
+              <path d="M6 10h10"></path>
+              <circle cx="12" cy="16" r="2"></circle>
+            </svg>
+          </div>
+          <div class="tab-texts">
+            <span class="realm-name">The Citadel</span>
+            <span class="section-title">About Me</span>
+          </div>
+          <span class="location-badge">The Reach</span>
+        </button>
+
+        <!-- Location 3: Braavos (My Profiles & Travels) -->
+        <button class="place-tab" data-place="braavos" data-theme="braavos" id="tab-braavos">
+          <div class="tab-indicator"></div>
+          <div class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+          </div>
+          <div class="tab-texts">
+            <span class="realm-name">Braavos</span>
+            <span class="section-title">My Profiles</span>
+          </div>
+          <span class="location-badge">Across the Narrow Sea</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Realm Stage -->
+  <main class="realm-main-container">
+    
+    <!-- ========================================================================= -->
+    <!-- INTERFACE 1: WINTERFELL (THE GREAT KEEP & MAESTER'S LEDGER) - MY DETAILS -->
+    <!-- ========================================================================= -->
+    <section id="interface-winterfell" class="realm-interface active" aria-labelledby="winterfell-heading">
+      <div class="location-banner">
+        <div class="banner-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="banner-content">
+          <span class="location-ancestry">Seat of the Kings of Winter &bull; Ancestral Fortress</span>
+          <h2 id="winterfell-heading" class="interface-title">The Winterfell Archives &bull; Personal Ledger</h2>
+          <p class="location-motto">&ldquo;The cold winds test the stone; quiet strength endures.&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="ledger-grid">
+        <!-- Left Column: The Maester's Parchment Roll of Vital Records -->
+        <div class="parchment-scroll-card winter-card">
+          <div class="wax-seal-stamp" title="Seal of Authenticity">
+            <span>RS</span>
+          </div>
+          <div class="scroll-ornament-top"></div>
+
+          <div class="scroll-inner">
+            <div class="scroll-header">
+              <span class="scroll-number">LEDGER ENTRY № 260906</span>
+              <h3 class="scroll-title">Vitals & Provenance</h3>
+              <p class="scroll-subtitle">Inscribed in the Great Hall's Registry of the Realm</p>
+            </div>
+
+            <div class="records-list">
+              <!-- Name Record -->
+              <div class="record-row">
+                <div class="record-meta">
+                  <span class="record-label">Given Name</span>
+                  <span class="record-sub">Title of Origin</span>
+                </div>
+                <div class="record-value highlight-name">
+                  <strong>Reet Sharma</strong>
+                  <span class="sigil-tag">Strategist & Explorer</span>
+                </div>
+              </div>
+
+              <!-- Date of Birth Record -->
+              <div class="record-row">
+                <div class="record-meta">
+                  <span class="record-label">Date of Birth</span>
+                  <span class="record-sub">Celestial Alignment</span>
+                </div>
+                <div class="record-value">
+                  <strong class="dob-highlight">26 / 09 / 2006</strong>
+                  <span class="dob-flavor">Turn of the Autumn Equinox &bull; Season of Harvest</span>
+                </div>
+              </div>
+
+              <!-- Contact Details / Raven Scroll -->
+              <div class="record-row contact-row">
+                <div class="record-meta">
+                  <span class="record-label">Direct Raven Address</span>
+                  <span class="record-sub">Electronic Scrollway</span>
+                </div>
+                <div class="record-value">
+                  <div class="email-badge-container">
+                    <a href="mailto:reetsharma2609@gmail.com" class="email-link" id="email-address-text">
+                      <svg class="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                      </svg>
+                      <span>reetsharma2609@gmail.com</span>
+                    </a>
+                    <button class="copy-email-btn" id="copy-email-action" title="Copy Raven Address" aria-label="Copy Email">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                      </svg>
+                      <span class="copy-tooltip" id="copy-tooltip-text">Copy to Scroll</span>
+                    </button>
+                  </div>
+                  <span class="contact-note">Always open to incoming ravens, collaborative quests, and academic endeavors.</span>
+                </div>
+              </div>
+
+              <!-- Realm Allegiance / Location -->
+              <div class="record-row">
+                <div class="record-meta">
+                  <span class="record-label">Current Realm</span>
+                  <span class="record-sub">Physical Base</span>
+                </div>
+                <div class="record-value">
+                  <strong>India &bull; Global Citizen</strong>
+                  <span class="dob-flavor">Ready to traverse any sea or land</span>
+                </div>
+              </div>
+
+              <!-- Core Specialty -->
+              <div class="record-row">
+                <div class="record-meta">
+                  <span class="record-label">Discipline</span>
+                  <span class="record-sub">Small Council Affinity</span>
+                </div>
+                <div class="record-value">
+                  <strong>Strategic Coordination & Lifelong Learning</strong>
+                  <span class="dob-flavor">Meticulous organization, management & leadership</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scroll-footer">
+              <div class="maester-seal-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Attested by the Maesters of Winterfell &bull; Record Untarnished</span>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-ornament-bottom"></div>
+        </div>
+
+        <!-- Right Column: Winterfell Pillars & Attributes -->
+        <div class="details-side-deck">
+          <!-- House Attributes Card -->
+          <div class="stone-tablet-card">
+            <div class="tablet-header">
+              <div class="tablet-badge">NORTHERN VIRTUES</div>
+              <h4>Core Attributes of the Mind</h4>
+            </div>
+            
+            <div class="virtues-list">
+              <div class="virtue-item">
+                <div class="virtue-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <div class="virtue-info">
+                  <h5>High Organization & Order</h5>
+                  <p>Capable of transforming scattered ideas, high-stress events, and complex schedules into smooth, clockwork precision.</p>
+                </div>
+              </div>
+
+              <div class="virtue-item">
+                <div class="virtue-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+                <div class="virtue-info">
+                  <h5>Calm Under Pressure</h5>
+                  <p>Like the grey granite walls of Winterfell facing the winter blizzards, maintaining composed clarity when others panic.</p>
+                </div>
+              </div>
+
+              <div class="virtue-item">
+                <div class="virtue-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <div class="virtue-info">
+                  <h5>Wanderlust & Adaptability</h5>
+                  <p>A traveler at heart, comfortable adapting to varied environments, cultures, and uncharted terrain.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Raven Dispatcher Preview Card -->
+          <div class="raven-dispatch-box">
+            <div class="raven-box-header">
+              <div class="raven-crest-small">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 2L11 13"></path>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </div>
+              <div>
+                <h4>Despatch a Raven</h4>
+                <p>Need to align, organize an event, or plan a new initiative?</p>
+              </div>
+            </div>
+            <div class="raven-quick-actions">
+              <a href="mailto:reetsharma2609@gmail.com?subject=Raven%20from%20the%20Realm&body=Greetings%20Reet," class="castle-btn">
+                <span>Compose Royal Message</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <button class="castle-btn outline" onclick="switchInterface('citadel')">
+                <span>Hear My Story at the Citadel</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- INTERFACE 2: THE CITADEL OF OLDTOWN (GREAT LIBRARY) - ABOUT ME            -->
+    <!-- ========================================================================= -->
+    <section id="interface-citadel" class="realm-interface" aria-labelledby="citadel-heading">
+      <div class="location-banner citadel-banner">
+        <div class="banner-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+        </div>
+        <div class="banner-content">
+          <span class="location-ancestry">The Conclave of Scholars &bull; City of the Hightower</span>
+          <h2 id="citadel-heading" class="interface-title">The Grand Library &bull; About Reet Sharma</h2>
+          <p class="location-motto">&ldquo;The mind is an unwritten scroll; every journey writes a link in the chain.&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="citadel-layout">
+        <!-- Main Narrative Scroll -->
+        <article class="citadel-scroll-article">
+          <div class="manuscript-frame">
+            <div class="illuminated-header">
+              <span class="chapter-tag">TOME I &bull; THE SEEKER'S INITIATION</span>
+              <h3 class="story-headline">From Zero Code to Infinite Horizons: The Tale of an Explorer & Master Organizer</h3>
+            </div>
+
+            <!-- Intro Story with GoT Metaphors & Personality -->
+            <div class="manuscript-body">
+              <p class="lead-passage">
+                <span class="drop-cap">E</span>very grand Archmaester of the Citadel once arrived at the towering gates of Oldtown without a single link forged upon their chain. I step into the realm of technology and creation with that same humility and audacity: a student standing with <strong>zero coding background</strong>, yet fueled by an unyielding thirst to discover, decode, and forge new capabilities from scratch.
+              </p>
+
+              <div class="story-divider">
+                <svg viewBox="0 0 100 20" preserveAspectRatio="none">
+                  <path d="M0 10 Q25 0, 50 10 T100 10" fill="none" stroke="currentColor" stroke-width="1" />
+                  <circle cx="50" cy="10" r="3" fill="currentColor" />
+                </svg>
+              </div>
+
+              <div class="narrative-section">
+                <h4>
+                  <span class="section-rune">&#9881;</span>
+                  The Art of Order: Managing Chaos into Harmony
+                </h4>
+                <p>
+                  In the courts of Westeros, armies falter without supply lines, and great realms crumble without sound counsel. Where others feel overwhelmed by moving pieces, disorganized clutter, and chaotic deadlines, I find my true element. I naturally gravitate towards <strong>organizing, structuring, and managing</strong> things &mdash; whether orchestrating intricate schedules, coordinating people, resolving bottlenecks, or bringing serene clarity to complex tasks. Like a trusted Hand of the King, I take pride in ensuring that whatever is entrusted to my watch executes seamlessly.
+                </p>
+              </div>
+
+              <div class="narrative-section">
+                <h4>
+                  <span class="section-rune">&#9733;</span>
+                  Wanderlust Across the Seas: The Heart of a Traveler
+                </h4>
+                <p>
+                  Beyond stone libraries and ledgers, my soul belongs to the open horizon. I am an impassioned <strong>traveler</strong>, drawn by the scent of distant oceans, the buzz of unfamiliar streets, diverse languages, and uncharted vistas. Traveling has been my greatest mentor: it teaches humility, quick adaptability, cultural empathy, and fearlessness when navigating the unknown. Each voyage reminds me that no horizon is too distant if you have the will to pack your gear and step forward.
+                </p>
+              </div>
+
+              <div class="narrative-section">
+                <h4>
+                  <span class="section-rune">&#9878;</span>
+                  Forging the Next Link: Looking Forward to Learn
+                </h4>
+                <p>
+                  Zero prior code does not mean zero potential &mdash; it means an uncorrupted canvas, unburdened by rigid dogmas. I am eagerly venturing into web technologies, digital design, problem-solving, and creative execution. I approach every lesson with the relentless patience of a stone mason and the curiosity of a child opening an ancient atlas. My goal is to fuse my natural talent for <strong>leadership, logistics, and management</strong> with modern technical prowess to build experiences that inspire and endure.
+                </p>
+              </div>
+
+              <div class="personal-quote-block">
+                <blockquote>
+                  &ldquo;I may not yet speak in binary or conjure complex algorithms at a whim, but give me a challenge, a destination, or an unorganized realm &mdash; and watch me chart the course, gather the allies, and bring it to triumph.&rdquo;
+                </blockquote>
+                <cite>&mdash; Reet Sharma</cite>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Side: The Maester's Links (Forging the Chain) -->
+        <aside class="citadel-aside">
+          <div class="astrolabe-card">
+            <div class="card-glass-header">
+              <span class="card-eyebrow">THE CITADEL CHAIN</span>
+              <h4>Links of My Growing Arsenal</h4>
+              <p>Valyrian Steel, Gold, and Bronze &mdash; the disciplines I cultivate:</p>
+            </div>
+
+            <div class="chain-links-container">
+              <!-- Link 1 -->
+              <div class="chain-link-item">
+                <div class="link-metal gold">
+                  <span class="metal-symbol">Au</span>
+                </div>
+                <div class="link-details">
+                  <h5>Event & Strategic Management</h5>
+                  <p>Meticulous organization, logistics, timeline governance, and bringing structure to group initiatives.</p>
+                  <div class="affinity-bar"><div class="affinity-fill" style="width: 95%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Link 2 -->
+              <div class="chain-link-item">
+                <div class="link-metal bronze">
+                  <span class="metal-symbol">Bz</span>
+                </div>
+                <div class="link-details">
+                  <h5>Travel & Cultural Adaptability</h5>
+                  <p>Navigating unfamiliar terrain, resourceful problem-solving on the road, deep appreciation of diverse perspectives.</p>
+                  <div class="affinity-bar"><div class="affinity-fill" style="width: 90%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Link 3 -->
+              <div class="chain-link-item">
+                <div class="link-metal silver">
+                  <span class="metal-symbol">Ag</span>
+                </div>
+                <div class="link-details">
+                  <h5>Eagerness to Learn & Explore</h5>
+                  <p>Inquisitive mindset, sponge-like retention, resilience through initial friction, high curiosity.</p>
+                  <div class="affinity-bar"><div class="affinity-fill" style="width: 98%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Link 4 -->
+              <div class="chain-link-item">
+                <div class="link-metal iron">
+                  <span class="metal-symbol">Fe</span>
+                </div>
+                <div class="link-details">
+                  <h5>Tech & Code Foundations (In Progress)</h5>
+                  <p>Taking first fearless steps in HTML, CSS, digital design, and computational logic from scratch.</p>
+                  <div class="affinity-bar"><div class="affinity-fill" style="width: 60%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="citadel-callout">
+              <span class="callout-icon">&#128220;</span>
+              <p>Ready to collaborate or test my organizational skills on a real venture? <strong>Let's connect in Braavos.</strong></p>
+              <button class="citadel-next-btn" onclick="switchInterface('braavos')">
+                <span>View My Profiles & Expeditions</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- INTERFACE 3: BRAAVOS (ACROSS THE NARROW SEA) - MY PROFILES & TRAVELS      -->
+    <!-- ========================================================================= -->
+    <section id="interface-braavos" class="realm-interface" aria-labelledby="braavos-heading">
+      <div class="location-banner braavos-banner">
+        <div class="banner-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+            <path d="M12 12 2.1 12a10 10 0 0 0 9.9 10V12z"></path>
+          </svg>
+        </div>
+        <div class="banner-content">
+          <span class="location-ancestry">The Titan's Bay &bull; The Free City of Canals & Merchants</span>
+          <h2 id="braavos-heading" class="interface-title">The Braavosi Docks &bull; My Profiles & Expeditions</h2>
+          <p class="location-motto">&ldquo;Across the waters, all paths converge; the Iron Bank honors deed, not lineage.&rdquo;</p>
+        </div>
+      </div>
+
+      <!-- Profiles Grid: Interactive Cards for Socials, Travel, Portfolio -->
+      <div class="braavos-docks-grid">
+        
+        <!-- Profile Card 1: Professional / LinkedIn (The Iron Bank Ledger) -->
+        <div class="harbor-card">
+          <div class="card-watermark">IN</div>
+          <div class="harbor-header">
+            <div class="harbor-icon linkedin-color">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.64 1.64 0 1 0-.01 3.28 1.64 1.64 0 0 0 .01-3.28Z"/>
+              </svg>
+            </div>
+            <div class="harbor-title-group">
+              <span class="harbor-tag">PROFESSIONAL LEDGER</span>
+              <h3>LinkedIn Network</h3>
+            </div>
+          </div>
+          <p class="harbor-desc">
+            Where professional alliances are forged. Connect with Reet for student leadership, management inquiries, and collaborative ventures.
+          </p>
+          <div class="harbor-meta">
+            <span class="meta-pill">Strategic Management</span>
+            <span class="meta-pill">Student Collaborations</span>
+          </div>
+          <div class="harbor-actions">
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="harbor-link-btn">
+              <span>Enter the Iron Ledger</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Profile Card 2: Travel Diary / Instagram (The Braavosi Wanderer) -->
+        <div class="harbor-card">
+          <div class="card-watermark">EXP</div>
+          <div class="harbor-header">
+            <div class="harbor-icon insta-color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </div>
+            <div class="harbor-title-group">
+              <span class="harbor-tag">THE TRAVELER'S LOG</span>
+              <h3>Travel & Chronicles</h3>
+            </div>
+          </div>
+          <p class="harbor-desc">
+            Visual dispatches from journeys, architectural marvels, winding trails, and cultural encounters across realms.
+          </p>
+          <div class="harbor-meta">
+            <span class="meta-pill">Wanderlust Stories</span>
+            <span class="meta-pill">Global Horizons</span>
+          </div>
+          <div class="harbor-actions">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="harbor-link-btn">
+              <span>View Traveler's Gallery</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Profile Card 3: GitHub / Tech Ledger (The House of Scrolls) -->
+        <div class="harbor-card">
+          <div class="card-watermark">GIT</div>
+          <div class="harbor-header">
+            <div class="harbor-icon github-color">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </div>
+            <div class="harbor-title-group">
+              <span class="harbor-tag">CODE REPOSITORY</span>
+              <h3>GitHub Forge</h3>
+            </div>
+          </div>
+          <p class="harbor-desc">
+            Documenting the live evolution from ground zero: storing HTML, CSS experiments, creative blueprints, and first code treasures.
+          </p>
+          <div class="harbor-meta">
+            <span class="meta-pill">HTML & CSS</span>
+            <span class="meta-pill">Open Learning Path</span>
+          </div>
+          <div class="harbor-actions">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="harbor-link-btn">
+              <span>Inspect Code Repository</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Profile Card 4: The Direct Raven Link (Email Contact) -->
+        <div class="harbor-card highlight-card">
+          <div class="card-watermark">&#9993;</div>
+          <div class="harbor-header">
+            <div class="harbor-icon email-color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2 11 13"></path>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </div>
+            <div class="harbor-title-group">
+              <span class="harbor-tag">OFFICIAL CORRESPONDENCE</span>
+              <h3>Electronic Raven</h3>
+            </div>
+          </div>
+          <p class="harbor-desc">
+            The primary channel for correspondence, collaborative projects, student associations, or sharing travel stories.
+          </p>
+          <div class="harbor-meta">
+            <span class="meta-pill">Email Inbox</span>
+            <span class="meta-pill">Swift Response</span>
+          </div>
+          <div class="harbor-actions">
+            <a href="mailto:reetsharma2609@gmail.com" class="harbor-link-btn highlight">
+              <span>Send Electronic Raven</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special Braavosi Feature: The Traveler's Compass & Philosophy -->
+      <div class="traveler-compass-strip">
+        <div class="compass-graphic">
+          <svg viewBox="0 0 100 100" class="compass-svg">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 3"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="1"/>
+            <polygon points="50,10 56,44 50,40 44,44" fill="currentColor"/>
+            <polygon points="50,90 56,56 50,60 44,56" fill="currentColor" opacity="0.6"/>
+            <polygon points="90,50 56,56 60,50 56,44" fill="currentColor" opacity="0.8"/>
+            <polygon points="10,50 44,56 40,50 44,44" fill="currentColor" opacity="0.5"/>
+            <text x="50" y="8" font-size="7" text-anchor="middle" fill="currentColor" font-family="Cinzel">N</text>
+            <text x="96" y="52" font-size="7" text-anchor="middle" fill="currentColor" font-family="Cinzel">E</text>
+            <text x="50" y="99" font-size="7" text-anchor="middle" fill="currentColor" font-family="Cinzel">S</text>
+            <text x="4" y="52" font-size="7" text-anchor="middle" fill="currentColor" font-family="Cinzel">W</text>
+          </svg>
+        </div>
+        <div class="compass-text">
+          <span class="compass-subtitle">THE TRAVELER'S MANIFESTO</span>
+          <h3>&ldquo;To travel is to conquer fear of the unknown.&rdquo;</h3>
+          <p>
+            Whether planning an expedition across foreign terrains or orchestrating a 50-person student summit, the principle remains constant: meticulous foresight, an open mind, and respect for every soul you encounter along the journey.
+          </p>
+          <div class="travel-tags">
+            <span class="travel-tag">Mountain Trails</span>
+            <span class="travel-tag">Historic Forts</span>
+            <span class="travel-tag">Coastal Harbors</span>
+            <span class="travel-tag">Cultural Conclaves</span>
+            <span class="travel-tag">Unplanned Odysseys</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Raven Dispatch Modal (Parchment Style) -->
+  <div id="raven-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-parchment" role="dialog" aria-modal="true" aria-labelledby="raven-modal-title">
+      <button class="modal-close-btn" id="close-modal-btn" aria-label="Close Raven Dispatcher">&times;</button>
+      
+      <div class="parchment-modal-header">
+        <div class="modal-wax-seal">RS</div>
+        <div>
+          <span class="modal-eyebrow">BY ORDER OF THE REALM</span>
+          <h3 id="raven-modal-title">Despatch a Raven to Reet</h3>
+        </div>
+      </div>
+
+      <p class="modal-lead">Inscribe your scroll below. It will be sealed and borne swiftly by electronic raven to <strong>reetsharma2609@gmail.com</strong>.</p>
+
+      <form id="raven-form" class="parchment-form" onsubmit="handleRavenSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sender-name">Your Lord / Lady Name</label>
+            <input type="text" id="sender-name" name="sender-name" placeholder="e.g. Lady Arya of the Vale" required>
+          </div>
+          <div class="form-group">
+            <label for="sender-house">House or Organization</label>
+            <input type="text" id="sender-house" name="sender-house" placeholder="e.g. University Council / House Tech">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="raven-subject">Subject of the Scroll</label>
+          <input type="text" id="raven-subject" name="raven-subject" placeholder="e.g. Collaboration & Management Inquiry" required>
+        </div>
+
+        <div class="form-group">
+          <label for="raven-message">Scroll Contents</label>
+          <textarea id="raven-message" name="raven-message" rows="4" placeholder="Greetings Reet, I came across your portfolio and would love to connect..." required></textarea>
+        </div>
+
+        <div class="form-footer">
+          <button type="button" class="castle-btn outline" id="cancel-modal-btn">Dismiss</button>
+          <button type="submit" class="castle-btn primary">
+            <span>Affix Wax Seal & Dispatch Raven</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Realm Footer -->
+  <footer class="realm-footer">
+    <div class="footer-inner">
+      <div class="footer-sigil-row">
+        <span class="sigil-knot"></span>
+        <span class="footer-realm-title">The Three Strongholds &bull; Winterfell &bull; The Citadel &bull; Braavos</span>
+        <span class="sigil-knot"></span>
+      </div>
+      <p class="footer-copy">
+        Crafted with pride in HTML & CSS for <strong>Reet Sharma</strong> &bull; Born 26 September 2006
+      </p>
+      <p class="footer-subtext">
+        Inspired by the universe of A Song of Ice and Fire / Game of Thrones. Subtle hues, eternal lore, endless horizons.
+      </p>
+      <div class="footer-bottom-nav">
+        <button onclick="switchInterface('winterfell')">Winterfell</button>
+        <span class="sep">&bull;</span>
+        <button onclick="switchInterface('citadel')">The Citadel</button>
+        <span class="sep">&bull;</span>
+        <button onclick="switchInterface('braavos')">Braavos</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
